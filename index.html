@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Practice Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        #animateDiv {
+            background-color: lightblue;
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+        #message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        #taskInput {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 200px;
+        }
+        #fadeElement {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: lightcoral;
+        }
+        #nameInput, #emailInput {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>jQuery Practice Tasks</h1>
+
+    <!-- Task 1: Setup jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Task 2: Interacting with a Button -->
+    <button id="showMessageButton">Click Me!</button>
+    <div id="message">Hello Sagiv!</div>
+
+    <!-- Task 3: Changing Styles Dynamically -->
+    <ul id="colorList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+    <button id="changeColorsButton">Change Colors</button>
+
+    <!-- Task 4: Adding Dynamic Content -->
+    <input type="text" id="taskInput" placeholder="Add a new item">
+    <button id="addItemButton">Add Item</button>
+
+    <!-- Task 5: Animating Elements -->
+    <div id="animateDiv"></div>
+    <button id="animateButton">Animate</button>
+
+    <!-- Task 6: Event Handling -->
+    <button id="hoverButton">Hover Over Me</button>
+    <p id="hoverMessage" style="display: none;">You hovered over the button!</p>
+
+    <!-- Task 7: Build a To-Do List -->
+    <h2>To-Do List</h2>
+    <ul id="todoList"></ul>
+    <input type="text" id="newTask" placeholder="New Task">
+    <button id="addTaskButton">Add Task</button>
+    <button id="clearAllButton">Clear All Tasks</button>
+
+    <!-- Bonus: Fade Effect -->
+    <button id="fadeInOutButton">Fade In/Out</button>
+    <div id="fadeElement">This is a fade effect!</div>
+
+    <!-- Task 8: Name and Email Input -->
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <input type="email" id="emailInput" placeholder="Enter your email">
+    <button id="submitButton">Submit</button>
+
+    <script>
+        $(document).ready(function () {
+
+            // Task 2: Interacting with a Button
+            $("#showMessageButton").click(function () {
+                $("#message").fadeIn(500); // Show message with fadeIn effect
+            });
+
+            // Task 3: Changing Styles Dynamically
+            let colors = ["red", "green", "blue"];
+            let currentColorIndex = 0;
+
+            $("#changeColorsButton").click(function () {
+                $("#colorList li").each(function (index) {
+                    $(this).css("color", colors[(index + currentColorIndex) % colors.length]);
+                });
+                currentColorIndex++;
+            });
+
+            // Task 4: Adding Dynamic Content
+            $("#addItemButton").click(function () {
+                var newItemText = $("#taskInput").val();
+                if (newItemText.trim() !== "") {
+                    $("#colorList").append("<li>" + newItemText + "</li>");
+                    $("#taskInput").val("");
+                }
+            });
+
+            // Task 5: Animating Elements
+            $("#animateButton").click(function () {
+                $("#animateDiv").animate({
+                    width: "200px",
+                    height: "200px",
+                    left: "+=50px"
+                }, 1000); // Animate to bigger size and move to the right
+            });
+
+            // Task 6: Event Handling
+            $("#hoverButton").hover(function () {
+                $("#hoverMessage").fadeIn();
+            }, function () {
+                $("#hoverMessage").fadeOut();
+            });
+
+            // Task 7: Build a To-Do List
+            $("#addTaskButton").click(function () {
+                var newTaskText = $("#newTask").val();
+                if (newTaskText.trim() !== "") {
+                    var newTask = $("<li>").text(newTaskText);
+                    newTask.click(function () {
+                        $(this).css("text-decoration", "line-through");
+                    });
+                    $("#todoList").append(newTask);
+                    $("#newTask").val("");
+                }
+            });
+
+            // Clear All Tasks
+            $("#clearAllButton").click(function () {
+                $("#todoList").empty();
+            });
+
+            // Bonus: Fade In and Fade Out
+            $("#fadeInOutButton").click(function () {
+                $("#fadeElement").fadeToggle();
+            });
+
+            // Task 8: Name and Email Input
+            $("#submitButton").click(function () {
+                var name = $("#nameInput").val();
+                var email = $("#emailInput").val();
+                if (name.trim() !== "" && email.trim() !== "") {
+                    $("#message").text("Hello " + name + "!").fadeIn(500); // Update message with name
+                } else {
+                    alert("Please fill in both fields.");
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
